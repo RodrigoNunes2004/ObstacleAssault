@@ -33,6 +33,10 @@ public:
 
 	UPROPERTY(VisibleAnywhere)
 	float DistanceMoved = 0.0f;
+	
+	UPROPERTY(EditAnywhere)
+	FRotator RotationVelocity;
+
 
 	FVector StartLocation;
 };
