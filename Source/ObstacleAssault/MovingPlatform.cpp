@@ -6,51 +6,60 @@
 // Sets default values
 AMovingPlatform::AMovingPlatform()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+
+}
+
+void MyTestFunction(float MyFloatParam, FString MyStringParam)
+{
+	UE_LOG(LogTemp, Display, TEXT("MyFloatParam is %f"), MyFloatParam);
+
+	UE_LOG(LogTemp, Display, TEXT("MyStringParam is %s"), *MyStringParam);
 }
 
 // Called when the game starts or when spawned
 void AMovingPlatform::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	FString MyName = GetName();
+	MyTestFunction(3.5f, MyName);
+
 	StartLocation = GetActorLocation();
-	
 }
 
 // Called every frame
 void AMovingPlatform::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	
+
 	MovePlatform(DeltaTime);
-	
 	RotatePlatform(DeltaTime);
-	
 }
 
-void AMovingPlatform ::MovePlatform(float DeltaTime)
+void AMovingPlatform::MovePlatform(float DeltaTime)
 {
 	FVector CurrentLocation = GetActorLocation();
-	
-	CurrentLocation = CurrentLocation+ (PlatformVelocity * DeltaTime);
-	
+
+	CurrentLocation = CurrentLocation + (PlatformVelocity * DeltaTime);
+
 	SetActorLocation(CurrentLocation);
-	
-	DistanceMove = FVector::Dist(CurrentLocation, StartLocation);
-	
-	if (DistanceMove >= MoveDistance)
+
+	DistanceMoved = FVector::Dist(StartLocation, CurrentLocation);
+
+	if (DistanceMoved >= MoveDistance)
 	{
+		float Overshoot = DistanceMoved - MoveDistance;
+		FString PlatformName = GetName();
+		UE_LOG(LogTemp, Display, TEXT("%s overshot by %f"), *PlatformName, Overshoot);
+
 		PlatformVelocity = -PlatformVelocity;
 		StartLocation = CurrentLocation;
 	}
 }
 
-void AMovingPlatform ::RotatePlatform(float DeltaTime)
+void AMovingPlatform::RotatePlatform(float DeltaTime)
 {
-	FVector CurrentLocation = GetActorLocation();
-	CurrentLocation = CurrentLocation + (PlatformVelocity * DeltaTime);
-	SetActorLocation(CurrentLocation);
+	// Rotate the platform
 }
-
