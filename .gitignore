@@ -1,0 +1,32 @@
+# Unreal Engine
+Binaries/
+Build/
+DerivedDataCache/
+Intermediate/
+Saved/
+
+# Visual Studio
+.vs/
+.idea/
+*.suo
+*.opensdf
+*.sdf
+*.VC.db
+*.VC.opendb
+*.vsconfig
+
+# Unreal project user files
+*.xcodeproj
+*.xcworkspace
+*.sln
+*.VC.db-wal
+*.VC.db-shm
+*.user
+*.userprefs
+*.sln.DotSettings.user
+
+# OS files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
